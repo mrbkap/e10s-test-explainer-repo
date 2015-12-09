@@ -17,7 +17,7 @@ add_task(function* test() {
     yield BrowserTestUtils.loadURI(newBrowser, "http://example.com/");
     yield BrowserTestUtils.browserLoaded(newBrowser);
 
-    yield testXFOFrameInContent(newBrowser);
+    yield ContentTask.spawn(newBrowser, null, testXFOFrameInContent);
   });
 });
 
@@ -65,6 +65,6 @@ function testXFOFrameInContent(newBrowser) {
     deferred.resolve();
   }, true);
 
-  newBrowser.contentDocument.body.appendChild(frame);
+  content.document.body.appendChild(frame);
   return deferred.promise;
 }
